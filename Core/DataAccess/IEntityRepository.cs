@@ -1,10 +1,11 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
+//using Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace DataAccess.Abstract
+namespace Core.DataAccess
 {
     // class: referans tip olsun gönderilen şey. int tarzı değer tipler gönderilmesin
     // IEntity(X) : gönderilen şey X ya da X ' i implemente eden bir şey olsun.
