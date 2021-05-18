@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -22,22 +24,23 @@ namespace Business.Concrete
         {
             //İş kodları
             //Yetkisi var mı?
-            if (DateTime.Now.Hour == 7) //sistem saat 7 de bakıma giriyor.
-            {
-                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
-            }
+
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ProductsListed);
-            //return _carDal.GetAll();
+        }
+        public IDataResult<Car> GetById(int Id)
+        {
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == Id), Messages.ProductsListed);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.BrandId==brandId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.BrandId==brandId), Messages.ProductsListed);
         }
+
 
         public IDataResult<List<Car>> GetCarsByColourId(int colourId)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.ColourId==colourId));
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.ColourId==colourId), Messages.ProductsListed);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
@@ -46,16 +49,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             //İş kodları
             //Yetkisi var mı?
-            if (car.Name.Length>=2 && car.DailyPrice>0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.ProductAdded);
-            }
-            return new ErrorResult(Messages.ProductNameInvalid);
+
+            _carDal.Add(car);
+            return new SuccessResult(Messages.ProductAdded);
+
+            //return new ErrorResult(Messages.ProductNameInvalid);
         }   
         
         public IResult Delete(Car car)
@@ -71,13 +74,6 @@ namespace Business.Concrete
             // bu güncelleme işini pek kavrayamadım sanki... memoryde güncellenen car objesi mi gönderiliyor acaba
             _carDal.Update(car);
             return new SuccessResult(Messages.ProductUpdated);
-        }
-
-        public IDataResult<Car> GetById(int Id)
-        {
-            return new SuccessDataResult<Car>(_carDal.Get(p=>p.Id==Id), Messages.ProductsListed);
-        }
-
-        
+        }       
     }
 }

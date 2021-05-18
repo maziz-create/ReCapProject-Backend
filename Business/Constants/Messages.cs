@@ -13,5 +13,7 @@ namespace Business.Constants
         public static string MaintenanceTime = "Sistem bakımda";
         public static string ProductsListed = "Listeleme işlemi başarılı";
         public static string RentError = "Araba zaten kiralanmış.";
+        public static string ImageLimitExceeded = "Resim ekleme sınırına ulaşıldı!";
+        public static string NotFound = "Böyle bir şey bulunamıyor!";
     }
 }
