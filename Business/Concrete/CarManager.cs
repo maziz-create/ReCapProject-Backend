@@ -1,6 +1,9 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -9,6 +12,7 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Business.Concrete
 {
@@ -20,36 +24,28 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [CacheAspect(duration: 10)] //mermoyde bunun return değerini 10 dakika tut
+        [PerformanceAspect(5)] //bu method 5 saniyeden fazla çaşılırsa beni uyar.
         public IDataResult<List<Car>> GetAll()
         {
-            //İş kodları
-            //Yetkisi var mı?
-
+            //Thread.Sleep(5000);//performans denemesi içindi.
             return new SuccessDataResult<List<Car>>(_carDal.GetAll(), Messages.ProductsListed);
         }
-        public IDataResult<Car> GetById(int Id)
-        {
-            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == Id), Messages.ProductsListed);
-        }
 
-        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
+        [CacheAspect(duration: 10)]
+        public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.BrandId==brandId), Messages.ProductsListed);
-        }
-
-
-        public IDataResult<List<Car>> GetCarsByColourId(int colourId)
-        {
-            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c=>c.ColourId==colourId), Messages.ProductsListed);
-        }
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.Id == id), Messages.ProductsListed);
+        }    
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            //return _carDal.GetCarDetails();
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+            return result;
         }
 
         [ValidationAspect(typeof(CarValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(Car car)
         {
             //İş kodları
@@ -74,6 +70,37 @@ namespace Business.Concrete
             // bu güncelleme işini pek kavrayamadım sanki... memoryde güncellenen car objesi mi gönderiliyor acaba
             _carDal.Update(car);
             return new SuccessResult(Messages.ProductUpdated);
-        }       
+        }
+
+        public IResult AddTransactionalTest(Car car)        //mantığını anlayamadım
+        {
+            _carDal.Update(car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.ProductUpdated);
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int id)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByBrandId(id));
+            return result;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailsByColourId(int id)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByColourId(id));
+            return result;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetail(int id)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail(id));
+            return result;
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarsByBrandIdAndColorId(int brandId, int colourId)
+        {
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsByBrandIdAndColorId(brandId, colourId));
+            return result;
+        }
     }
 }

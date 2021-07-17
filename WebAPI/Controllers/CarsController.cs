@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,9 +14,6 @@ namespace WebAPI.Controllers
     [ApiController]
     public class CarsController : ControllerBase
     {
-        // iş katmanına bağlanacağız direkt olarak. 
-        // o da haliyle dal kısmına bağlanacak.
-        // bu 2 bağlantıda API hizmeti bizim interfaceleri gösterdiğimizde algılayamıyor, IoC container ile arka planda managerleri newlememiz gerekiyor. Bu da startup kısmında olacak.
         ICarService _carService;
 
         public CarsController(ICarService carService)
@@ -26,6 +24,7 @@ namespace WebAPI.Controllers
 
 
         [HttpGet("getall")]
+        [Authorize()] //sisteme giriş yapman ve tokenini saklaman gerekli...
         public IActionResult GetAll()
         {
             var result = _carService.GetAll();
@@ -47,10 +46,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbybrandid")]
-        public IActionResult GetByBrandId(int id)
+        [HttpGet("getcardetail")]
+        public IActionResult GetCarDetail(int id)
         {
-            var result = _carService.GetCarsByBrandId(id);
+            var result = _carService.GetCarDetail(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -58,10 +57,22 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getbycolourid")]
-        public IActionResult GetByColourId(int id)
+        [HttpGet("getcardetailsbybrand")]
+        public IActionResult GetByBrandId(int brandId)
         {
-            var result = _carService.GetCarsByColourId(id);
+            var result = _carService.GetCarDetailsByBrandId(brandId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+
+        [HttpGet("getcardetailsbycolour")]
+        public IActionResult GetByColourId(int colourId)
+        {
+            var result = _carService.GetCarDetailsByColourId(colourId);
             if (result.Success)
             {
                 return Ok(result);
@@ -106,6 +117,18 @@ namespace WebAPI.Controllers
         public IActionResult Update(Car car)
         {
             var result = _carService.Update(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarsbybrandidandcolourid")]
+        public IActionResult GetCarsByBrandIdAndColourId(int brandId, int colourId)
+        {
+            var result = _carService.GetCarsByBrandIdAndColorId(brandId, colourId);
+
             if (result.Success)
             {
                 return Ok(result);

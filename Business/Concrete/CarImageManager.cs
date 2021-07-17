@@ -28,8 +28,10 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c=>c.CarId==carId), Messages.ProductsListed);
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(i => i.CarId == carId), Messages.ProductsListed);
+            
         }
+
         public IDataResult<CarImage> Get(int Id)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(p=>p.Id == Id), Messages.ProductsListed);
@@ -79,7 +81,6 @@ namespace Business.Concrete
 
         }
 
-        //business rules
 
         private IResult CheckIfImageLimitExceeded(int carId)
         {

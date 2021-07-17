@@ -55,7 +55,7 @@ namespace Business.Concrete
         {
             //şartlar şartlar şartlar
             //uygunsa buyur yap
-            return new SuccessDataResult<Brand>(_brandDal.Get(b=>b.Id==Id));
+            return new SuccessDataResult<Brand>(_brandDal.Get(b=>b.BrandId==Id));
         }
 
        

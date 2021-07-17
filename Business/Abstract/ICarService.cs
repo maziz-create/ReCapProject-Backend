@@ -11,12 +11,14 @@ namespace Business.Abstract
     {
         IDataResult<List<Car>> GetAll();
         IDataResult<List<CarDetailDto>> GetCarDetails();
-        IDataResult<List<Car>> GetCarsByColourId(int colourId);
-        IDataResult<List<Car>> GetCarsByBrandId(int brandId);
-        IDataResult<Car> GetById(int Id);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int id);
+        IDataResult<List<CarDetailDto>> GetCarDetailsByColourId(int id);
+        IDataResult<List<CarDetailDto>> GetCarDetail(int id);
+        IDataResult<List<CarDetailDto>> GetCarsByBrandIdAndColorId(int brandId, int colourId);
+        IDataResult<Car> GetById(int id);
         IResult Add(Car car);
         IResult Delete(Car car);
         IResult Update(Car car);
-
+        IResult AddTransactionalTest(Car car); //transaction yönetimi için.
     }
 }
