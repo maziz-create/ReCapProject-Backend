@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Concrete;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -14,7 +15,6 @@ namespace Business.Constants
         public static string ProductNameInvalid = "İsim geçersiz";
         public static string MaintenanceTime = "Sistem bakımda";
         public static string ProductsListed = "Listeleme işlemi başarılı";
-
 
         public static string ImageLimitExceeded = "Resim ekleme sınırına ulaşıldı";
         public static string NotFound = "Böyle bir şey bulunamıyor";
@@ -44,5 +44,10 @@ namespace Business.Constants
         public static string UserOperationClaimAdded = "Kullanıcıya yetki verildi.";
         public static string UserOperationClaimUpdated = "Kullanıcının yetkisi güncellendi.";
         public static string UserOperationClaimDeleted = "Kullanıcının yetkisi silindi.";
+
+        public static string FindeksNotFound = "Findeks bulunamadı.";
+        public static string FindeksAdded = "Findeks eklendi.";
+        public static string FindeksUpdated = "Findeks güncellendi.";
+        public static string FindeksDeleted = "Findeks silindi.";
     }
 }

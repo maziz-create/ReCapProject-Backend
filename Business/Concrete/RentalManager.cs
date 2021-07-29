@@ -15,9 +15,14 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        IRentalDal _rentalDal;
-        public RentalManager(IRentalDal rentalDal)
+        private readonly ICarService _carService;
+        private readonly IFindeksService _findeksService;
+        private readonly IRentalDal _rentalDal;
+
+        public RentalManager(IRentalDal rentalDal, ICarService carService, IFindeksService findeksService)
         {
+            _carService = carService;
+            _findeksService = findeksService;
             _rentalDal = rentalDal;
         }
         public IResult Add(Rental rental)
@@ -70,18 +75,15 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.CarId == carId));
         }
 
+        public IResult CheckFindeksScoreSufficiency(Rental rental)
+        {
+            var car = _carService.GetById(rental.CarId).Data;
+            var findeks = _findeksService.GetByCustomerId(rental.CustomerId).Data;
 
+            if (findeks == null) return new ErrorResult(Messages.FindeksNotFound);
+            if (findeks.Score < car.MinFindeksScore) return new ErrorResult(Messages.FindeksNotEnoughForCar);
 
-
-
-        //bunu iptal ediyorum çünkü bendeki returndate ile adamınki farklı. onda rentstartdate , rentenddate ve returndate var. bende rentdate ve returndate var. 
-
-        //public IResult CheckReturnDateByCarId(int carId)
-        //{
-        //    var result = _rentalDal.GetAll(x => x.CarId == carId && x.ReturnDate == null);
-        //    if (result.Count > 0) return new ErrorResult(Messages.RentalUndeliveredCar);
-
-        //    return new SuccessResult();
-        //}
+            return new SuccessResult();
+        }
     }
 }

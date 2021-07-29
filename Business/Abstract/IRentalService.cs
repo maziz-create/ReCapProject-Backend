@@ -18,6 +18,6 @@ namespace Business.Abstract
         IResult Update(Rental rental);
         //IResult CheckReturnDateByCarId(int carId);    //=>rentalmanager
         IResult IsRentable(Rental rental);
-        //IResult CheckFindeksScoreSufficiency(Rental rental); ÖDEVDE VERİLCEK SANIRIM
+        IResult CheckFindeksScoreSufficiency(Rental rental);
     }
 }
