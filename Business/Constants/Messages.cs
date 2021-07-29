@@ -49,5 +49,6 @@ namespace Business.Constants
         public static string FindeksAdded = "Findeks eklendi.";
         public static string FindeksUpdated = "Findeks güncellendi.";
         public static string FindeksDeleted = "Findeks silindi.";
+        public static string FindeksNotEnoughForCar = "Arabayı kiralamak için findeks puanı yeterli değil.";
     }
 }

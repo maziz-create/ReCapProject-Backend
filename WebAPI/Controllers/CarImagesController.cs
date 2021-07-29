@@ -88,5 +88,21 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getfilebyid")]
+        public IActionResult GetFileById(int id)
+        {
+            var result = _carImageService.Get(id);
+
+            if (result.Success)
+            {
+                string path = "wwwroot" + result.Data.ImagePath;
+                var b = System.IO.File.ReadAllBytes(path);
+                return File(b, "image/png");
+            }
+
+            return BadRequest(result);
+        }
+
     }
 }

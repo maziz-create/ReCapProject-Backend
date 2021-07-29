@@ -11,8 +11,8 @@ namespace Business.ValidationRules.FluentValidation
     {
         public RentalValidator()
         {
-            RuleFor(r => r.RentDate).LessThan(r => r.ReturnDate);
-            RuleFor(r => r.ReturnDate).GreaterThan(r => r.RentDate);
+            RuleFor(r => r.RentStartDate).LessThan(r => r.RentEndDate);
+            RuleFor(r => r.ReturnDate).GreaterThan(r => r.RentStartDate);
         }
     }
 }

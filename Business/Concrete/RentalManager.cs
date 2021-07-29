@@ -63,8 +63,8 @@ namespace Business.Concrete
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId);
 
             if (result.Any(r =>
-                r.ReturnDate >= rental.RentDate &&
-                r.RentDate <= rental.ReturnDate
+                r.RentEndDate >= rental.RentStartDate &&
+                r.RentStartDate <= rental.RentEndDate
             )) return new ErrorResult(Messages.RentalNotAvailable);
 
             return new SuccessResult();
@@ -78,7 +78,7 @@ namespace Business.Concrete
         public IResult CheckFindeksScoreSufficiency(Rental rental)
         {
             var car = _carService.GetById(rental.CarId).Data;
-            var findeks = _findeksService.GetByCustomerId(rental.CustomerId).Data;
+            var findeks = _findeksService.GetByCustomerId(rental.UserId).Data;
 
             if (findeks == null) return new ErrorResult(Messages.FindeksNotFound);
             if (findeks.Score < car.MinFindeksScore) return new ErrorResult(Messages.FindeksNotEnoughForCar);
