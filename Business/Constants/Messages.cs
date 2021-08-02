@@ -20,6 +20,7 @@ namespace Business.Constants
         public static string NotFound = "Böyle bir şey bulunamıyor";
 
         public static string UserRegistered = "Kayıt başarılı";
+        public static string UserDetailsUpdated = "Kullanıcı detayları güncellendi.";
         public static string UserNotFound = "Kullanıcı bulunamadı";
         public static string PasswordError = "Parola hatalı";
         public static string SuccessfulLogin = "Giriş başarılı";
@@ -50,5 +51,7 @@ namespace Business.Constants
         public static string FindeksUpdated = "Findeks güncellendi.";
         public static string FindeksDeleted = "Findeks silindi.";
         public static string FindeksNotEnoughForCar = "Arabayı kiralamak için findeks puanı yeterli değil.";
+
+
     }
 }
