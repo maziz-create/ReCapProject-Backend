@@ -9,15 +9,15 @@ namespace Entities.DTOs
 {
     public class CarDetailDto : IDto
     {
-        public int carId { get; set; }
-        public string carName { get; set; }
-        public int brandId { get; set; }
-        public string brandName { get; set; }
-        public int colourId { get; set; }
-        public string colourName { get; set; }
-        public int modelYear { get; set; }
-        public int dailyPrice { get; set; }
-        public string description { get; set; }
-        public List<string> imagePaths { get; set; }
+        public int CarId { get; set; }
+        public string CarName { get; set; }
+        public int BrandId { get; set; }
+        public string BrandName { get; set; }
+        public int ColourId { get; set; }
+        public string ColourName { get; set; }
+        public int ModelYear { get; set; }
+        public int DailyPrice { get; set; }
+        public string Description { get; set; }
+        public List<string> ImagePaths { get; set; }
     }
 }

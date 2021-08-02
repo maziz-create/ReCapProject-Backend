@@ -29,7 +29,6 @@ namespace Business.Concrete
         public IDataResult<List<CarImage>> GetImagesByCarId(int carId)
         {
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(i => i.CarId == carId), Messages.ProductsListed);
-            
         }
 
         public IDataResult<CarImage> Get(int Id)

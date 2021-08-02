@@ -9,6 +9,5 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarImageDal : EfEntityRepositoryBase<CarImage, ReCapDBContext>, ICarImageDal
     {
-
     }
 }

@@ -89,6 +89,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //resmin url'si gönderiliyor.
         [HttpGet("getfilebyid")]
         public IActionResult GetFileById(int id)
         {
