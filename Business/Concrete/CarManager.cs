@@ -48,26 +48,18 @@ namespace Business.Concrete
         [SecuredOperation("admin")]
         public IResult Add(Car car)
         {
-            //İş kodları
-            //Yetkisi var mı?
-
             _carDal.Add(car);
             return new SuccessResult(Messages.ProductAdded);
-
-            //return new ErrorResult(Messages.ProductNameInvalid);
         }   
         
         public IResult Delete(Car car)
         {
-            // şartlar ... mesela yetkisi var mı ? arabanın adı 2 harften büyük mü vs
             _carDal.Delete(car);
             return new SuccessResult(Messages.ProductDeleted);
         }
 
         public IResult Update(Car car)
         {
-            // şartlar ... mesela yetkisi var mı ? arabanın adı 2 harften büyük mü vs
-            // bu güncelleme işini pek kavrayamadım sanki... memoryde güncellenen car objesi mi gönderiliyor acaba
             _carDal.Update(car);
             return new SuccessResult(Messages.ProductUpdated);
         }
@@ -81,25 +73,25 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetailsByBrandId(int id)
         {
-            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByBrandId(id));
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == id));
             return result;
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetailsByColourId(int id)
         {
-            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailsByColourId(id));
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColourId == id));
             return result;
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetail(int id)
         {
-            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetail(id));
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == id));
             return result;
         }
 
         public IDataResult<List<CarDetailDto>> GetCarsByBrandIdAndColorId(int brandId, int colourId)
         {
-            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarsByBrandIdAndColorId(brandId, colourId));
+            var result = new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.BrandId == brandId && c.ColourId == colourId));
             return result;
         }
 
