@@ -75,5 +75,14 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getuserdetailbyemail")]
+        public IActionResult GetUserDetailByMail(string email)
+        {
+            var result = _userService.GetByMail(email);
+            if (result.Success) return Ok(result);
+
+            return BadRequest(result);
+        }
     }
 }
