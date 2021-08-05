@@ -45,5 +45,27 @@ namespace DataAccess.Concrete.EntityFramework
                 return result;
             }
         }
+
+        public UserDetailDto GetUserDetailByUserId(int userId)
+        {
+            using (var context = new ReCapDBContext())
+            {
+                var result =
+                    (from u in context.Users
+                     join c in context.Customers
+                         on u.Id equals c.UserId
+                     where u.Id == userId
+                     select new UserDetailDto
+                     {
+                         Id = u.Id,
+                         CustomerId = c.Id,
+                         FirstName = u.FirstName,
+                         LastName = u.LastName,
+                         Email = u.Email,
+                         CompanyName = c.CompanyName
+                     }).FirstOrDefault();
+                return result;
+            }
+        }
     }
 }

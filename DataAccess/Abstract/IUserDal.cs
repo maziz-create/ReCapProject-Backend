@@ -12,5 +12,6 @@ namespace DataAccess.Abstract
     {
         List<OperationClaim> GetClaims(User user);
         UserDetailDto GetUserDetail(string userMail);
+        UserDetailDto GetUserDetailByUserId(int userId);
     }
 }

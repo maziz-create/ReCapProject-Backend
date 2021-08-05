@@ -14,10 +14,12 @@ namespace WebAPI.Controllers
     public class FindeksController : ControllerBase
     {
         private readonly IFindeksService _findeksService;
+        private readonly ICustomerService _customerService;
 
-        public FindeksController(IFindeksService findeksService)
+        public FindeksController(IFindeksService findeksService, ICustomerService customerService)
         {
             _findeksService = findeksService;
+            _customerService = customerService;
         }
 
         [HttpPost("add")]
@@ -51,6 +53,16 @@ namespace WebAPI.Controllers
         public IActionResult GetByCustomerId(int customerId)
         {
             var result = _findeksService.GetByCustomerId(customerId);
+            if (result.Success) return Ok(result);
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserId(int userId)
+        {
+            var customer = _customerService.GetByUserId(userId);
+            var result = _findeksService.GetByCustomerId(customer.Data.Id);
             if (result.Success) return Ok(result);
 
             return BadRequest(result);

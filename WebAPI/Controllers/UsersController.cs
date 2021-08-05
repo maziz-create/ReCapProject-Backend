@@ -33,10 +33,22 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //user döndürür
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _userService.GetById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getuserdetaildtobyuserid")]
+        public IActionResult GetUserDetailDtoByUserId(int id)
+        {
+            var result = _userService.GetUserDetailDtoByUserId(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -77,6 +89,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        //user döndürür
         [HttpGet("getuserdetailbyemail")]
         public IActionResult GetUserDetailByMail(string email)
         {

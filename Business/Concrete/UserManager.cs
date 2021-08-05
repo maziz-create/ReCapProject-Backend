@@ -52,7 +52,12 @@ namespace Business.Concrete
 
         public IDataResult<User> GetById(int Id)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u=>u.Id == Id));
+            return new SuccessDataResult<User>(_userDal.Get(u=> u.Id == Id));
+        }
+
+        public IDataResult<UserDetailDto> GetUserDetailDtoByUserId(int id)
+        {
+            return new SuccessDataResult<UserDetailDto>(_userDal.GetUserDetailByUserId(id));
         }
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
