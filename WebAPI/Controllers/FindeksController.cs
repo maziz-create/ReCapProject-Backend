@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int id) 
         {
             var result = _findeksService.GetById(id);
             if (result.Success) return Ok(result);
