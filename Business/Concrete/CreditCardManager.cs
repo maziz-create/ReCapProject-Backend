@@ -18,19 +18,19 @@ namespace Business.Concrete
             _creditCardDal = creditCardDal;
         }
 
-        [SecuredOperation("user")]
+        //[SecuredOperation("user")]
         public IDataResult<CreditCard> GetById(int id)
         {
             return new SuccessDataResult<CreditCard>(_creditCardDal.Get(c => c.Id == id));
         }
 
-        [SecuredOperation("user")]
+        //[SecuredOperation("user")]
         public IDataResult<List<CreditCard>> GetAllByCustomerId(int customerId)
         {
             return new SuccessDataResult<List<CreditCard>>(_creditCardDal.GetAll(c => c.CustomerId == customerId)); //bir kullanıcının tüm kartları
         }
 
-        [SecuredOperation("user")]
+        //[SecuredOperation("user")]
         public IResult Add(CreditCard creditCard)
         {
             _creditCardDal.Add(creditCard);
@@ -38,7 +38,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.creditCardAdded);
         }
 
-        [SecuredOperation("user")]
+        //[SecuredOperation("user")]
         public IResult Delete(CreditCard creditCard)
         {
             _creditCardDal.Delete(creditCard);
