@@ -36,7 +36,7 @@ namespace Business.Concrete
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
 
-        //[SecuredOperation("user")]
+        [SecuredOperation("user")]
         public IResult IsAuthenticated(string userMail, List<string> requiredRoles)
         {
             if (requiredRoles != null)

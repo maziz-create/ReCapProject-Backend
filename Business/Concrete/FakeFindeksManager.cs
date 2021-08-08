@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -18,13 +19,13 @@ namespace Business.Concrete
             _findeksDal = findeksDal;
         }
 
-        //[SecuredOperation("findeks.get,moderator,admin")]
+        [SecuredOperation("findeks.get,moderator,admin")]
         public IDataResult<Findeks> GetById(int id)
         {
             return new SuccessDataResult<Findeks>(_findeksDal.Get(f => f.Id == id));
         }
 
-        //[SecuredOperation("user")]
+        [SecuredOperation("user")]
         public IDataResult<Findeks> GetByCustomerId(int customerId)
         {
             var findeks = _findeksDal.Get(f => f.CustomerId == customerId);
@@ -32,13 +33,13 @@ namespace Business.Concrete
             return new SuccessDataResult<Findeks>(findeks);
         }
 
-        //[SecuredOperation("findeks.get,moderator,admin")]
+        [SecuredOperation("findeks.get,moderator,admin")]
         public IDataResult<List<Findeks>> GetAll()
         {
             return new SuccessDataResult<List<Findeks>>(_findeksDal.GetAll());
         }
 
-        //[SecuredOperation("user")]
+        [SecuredOperation("user")]
         public IResult Add(Findeks findeks)
         {
             //gelen findeksin bir skoru eksik, onu halledip ekledik veritabanına.
@@ -48,7 +49,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.FindeksAdded);
         }
 
-        //[SecuredOperation("findeks.update,moderator,admin")]
+        [SecuredOperation("findeks.update,moderator,admin")]
         public IResult Update(Findeks findeks)
         {
             var newFindeks = CalculateFindeksScore(findeks).Data;
@@ -57,7 +58,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.FindeksUpdated);
         }
 
-        //[SecuredOperation("findeks.delete,moderator,admin")]
+        [SecuredOperation("findeks.delete,moderator,admin")] 
         public IResult Delete(Findeks findeks)
         {
             _findeksDal.Delete(findeks);

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -18,17 +19,21 @@ namespace Business.Concrete
             _colourDal = colourDal;
         }
 
+        [SecuredOperation("colour.add,moderator,admin")]
         public IResult Add(Colour colour)
         {
             _colourDal.Add(colour);
             return new SuccessResult(Messages.ProductAdded);
         }
 
+        [SecuredOperation("colour.delete,moderator,admin")]
         public IResult Delete(Colour colour)
         {
             _colourDal.Delete(colour);
             return new SuccessResult(Messages.ProductDeleted);
         }
+
+        [SecuredOperation("colour.update,moderator,admin")]
         public IResult Update(Colour colour)
         {
             _colourDal.Update(colour);

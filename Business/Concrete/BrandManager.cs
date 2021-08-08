@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -18,6 +19,7 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        [SecuredOperation("brand.add,moderator,admin")]
         public IResult Add(Brand brand)
         {
             //şartlar şartlar şartlar
@@ -26,6 +28,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
         }
 
+        [SecuredOperation("brand.delete,moderator,admin")]
         public IResult Delete(Brand brand)
         {
             //şartlar şartlar şartlar
@@ -33,6 +36,8 @@ namespace Business.Concrete
             _brandDal.Delete(brand);
             return new SuccessResult(Messages.ProductDeleted);
         }
+
+        [SecuredOperation("brand.update,moderator,admin")]
         public IResult Update(Brand brand)
         {
             //şartlar şartlar şartlar

@@ -33,23 +33,27 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductAdded);
         }
 
+        [SecuredOperation("user.delete,moderator,admin")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
             return new SuccessResult(Messages.ProductDeleted);
         }
 
+        [SecuredOperation("user.update,moderator,admin")]
         public IResult Update(User user)
         {
             _userDal.Update(user);
             return new SuccessResult(Messages.ProductUpdated);
         }
 
+        [SecuredOperation("user.get,moderator,admin")]
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll());
         }
 
+        [SecuredOperation("user.get,moderator,admin")]
         public IDataResult<User> GetById(int Id)
         {
             return new SuccessDataResult<User>(_userDal.Get(u=> u.Id == Id));
@@ -70,7 +74,7 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(u=>u.Email == email));
         }
 
-        //[SecuredOperation("user")]
+        [SecuredOperation("user")]
         public IResult UpdateUserDetails(UserDetailForUpdateDto userDetailForUpdate)
         {
             var user = GetById(userDetailForUpdate.Id).Data;

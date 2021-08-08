@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
 using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
@@ -50,6 +52,8 @@ namespace Business.Concrete
             return new ErrorResult(imageResult.Message);
         }
 
+        [SecuredOperation("carimage.delete,moderator,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             var image = _carImageDal.Get(c=>c.Id == carImage.Id);
@@ -62,6 +66,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ProductDeleted);
         }
 
+        [SecuredOperation("carimage.update,moderator,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(IFormFile file ,CarImage carImage)
         {
             var imageToUpdate = _carImageDal.Get(c=>c.Id == carImage.Id);
