@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/maziz-create/ReCapProject-Backend">
-    <img src="https://user-images.githubusercontent.com/53148314/110218503-2f2ef700-7ecb-11eb-9753-6f760c72511e.png" alt="ReCap Project">
+    <img width=220 src="https://i.imgur.com/XeaXr9l.gif" alt="ReCap Project">
   </a>
   <h2 align="center">ReCapProject - Backend</h2>
   <p align="center">
