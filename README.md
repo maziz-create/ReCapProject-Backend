@@ -450,7 +450,7 @@ Project Link: [https://github.com/maziz-create/ReCapProject-Backend](https://git
 [contributors-url]: https://github.com/maziz-create/ReCapProject-Backend/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/maziz-create/ReCapProject-Backend.svg?style=for-the-badge
 [forks-url]: https://github.com/maziz-create/ReCapProject-Backend/network/members
-[stars-shield]: https://img.shields.io/github/maziz-create/ReCapProject-Backend.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/maziz-create/ReCapProject-Backend.svg?style=for-the-badge
 [stars-url]: https://github.com/maziz-create/ReCapProject-Backend/stargazers
 [issues-shield]: https://img.shields.io/github/issues/maziz-create/ReCapProject-Backend.svg?style=for-the-badge
 [issues-url]: https://github.com/maziz-create/ReCapProject-Backend/issues
